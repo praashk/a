@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Payments – The Future of Money</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f3f6fc;--card:rgba(255,255,255,.78);--ink:#0b1226;--mut:#55627e;--a:#0891b2;--b:#7c3aed;--ok:#059669;--no:#e11d48;--ln:rgba(11,18,38,.11);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060a14;--card:rgba(20,28,52,.62);--ink:#eef3ff;--mut:#98a7c6;--a:#22d3ee;--b:#a78bfa;--ok:#34d399;--no:#fb7185;--ln:rgba(255,255,255,.11);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#060a14;--card:rgba(20,28,52,.62);--ink:#eef3ff;--mut:#98a7c6;--a:#22d3ee;--b:#a78bfa;--ok:#34d399;--no:#fb7185;--ln:rgba(255,255,255,.11);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 "Inter",system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,.hd{font-family:"Sora","Inter",system-ui,sans-serif;letter-spacing:-.02em}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 75%);pointer-events:none}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(420px circle at var(--mx,70%) var(--my,25%),color-mix(in srgb,var(--b) 20%,transparent),transparent 70%);pointer-events:none}
+.blob{position:fixed;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.28;pointer-events:none;animation:fl 18s ease-in-out infinite alternate}
+.blob.x{background:var(--a);top:-20vmax;right:-14vmax}.blob.y{background:var(--b);bottom:-24vmax;left:-16vmax;animation-delay:-9s}
+@keyframes fl{to{transform:translate(-5vmax,6vmax) scale(1.15)}}
+#bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:4px;width:10%;background:linear-gradient(90deg,var(--a),var(--b));transition:width .6s cubic-bezier(.2,.8,.2,1);z-index:6;border-radius:0 4px 4px 0;box-shadow:0 0 18px var(--a)}
+#top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 4vw;font:600 12px "Sora",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);z-index:4}
+#top .lg{display:flex;align-items:center;gap:8px;color:var(--ink)}
+#top .lg i{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--a),var(--b));display:block}
+@media(max-width:700px){#sec{display:none}}
+.slide{position:absolute;inset:0;padding:70px 5vw 92px;overflow-y:auto;opacity:0;visibility:hidden;transform:scale(.98) translateY(12px);transition:opacity .5s,transform .5s,visibility 0s .5s;display:flex;flex-direction:column;justify-content:center;max-width:1280px;margin:auto}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s,transform .5s}
+.rv{opacity:0}
+.slide.on .rv{animation:up .85s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*90ms + 120ms)}
+@keyframes up{from{opacity:0;transform:translateY(28px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.ey{display:inline-flex;align-items:center;gap:10px;font:600 12px "Sora",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin:0 0 10px}
+.ey::before{content:"";width:28px;height:2px;background:linear-gradient(90deg,var(--a),var(--b))}
+h1{font-size:clamp(42px,8vw,104px);line-height:1;margin:.1em 0;font-weight:800}
+h2{font-size:clamp(28px,4.4vw,52px);line-height:1.08;margin:0 0 8px;font-weight:800}
+h3{font-size:17px;margin:12px 0 4px;font-weight:700}
+.gr{background:linear-gradient(100deg,var(--a),var(--b),var(--a));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.ld{color:var(--mut);font-size:clamp(15px,1.5vw,19px);max-width:680px;margin:6px 0 26px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{position:relative;background:var(--card);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--ln);border-radius:22px;padding:22px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(240px circle at var(--cx,50%) var(--cy,0%),color-mix(in srgb,var(--a) 20%,transparent),transparent 70%);opacity:0;transition:opacity .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--a)}.card:hover::before{opacity:1}
+.card p{margin:0;color:var(--mut);font-size:14.5px}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ib{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:15px;font-size:24px;color:var(--a);background:linear-gradient(135deg,color-mix(in srgb,var(--a) 22%,transparent),color-mix(in srgb,var(--b) 22%,transparent));border:1px solid var(--ln)}
+.ib.g{color:var(--ok)}.ib.r{color:var(--no)}
+.sp{display:grid;gap:44px;grid-template-columns:1.1fr .9fr;align-items:center}
+@media(max-width:860px){.sp{grid-template-columns:1fr;gap:24px}.slide{justify-content:flex-start}}
+.tag{display:inline-block;padding:7px 14px;border-radius:99px;border:1px solid var(--ln);background:var(--card);font:600 13px "Sora",sans-serif;margin:0 6px 8px 0}
+.cr{border-bottom:1px dashed var(--mut);outline:none;padding:0 4px;color:var(--ink);font-weight:600}
+.cr:focus{border-color:var(--a)}
+.by{display:flex;align-items:center;gap:12px;margin-top:34px;color:var(--mut);font-size:14px}
+.by .ib{width:40px;height:40px;font-size:20px;border-radius:50%}
+/* title visual */
+.orbit{position:relative;width:min(400px,80vw);aspect-ratio:1;margin:auto}
+.ring{position:absolute;border:1px dashed var(--ln);border-radius:50%;animation:spin linear infinite}
+.r1{inset:2%;animation-duration:34s}.r2{inset:17%;animation-duration:24s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ob{position:absolute;inset:0;transform:rotate(var(--r))}
+.ob .ib{position:absolute;top:-24px;left:calc(50% - 24px);background:var(--bg);animation:cs 34s linear infinite}
+.r2 .ob .ib{animation:cs 24s linear infinite reverse}
+@keyframes cs{from{transform:rotate(calc(var(--r)*-1))}to{transform:rotate(calc(-360deg - var(--r)))}}
+.orbit>svg{position:absolute;left:50%;top:50%;width:34%;transform:translate(-50%,-50%);filter:drop-shadow(0 20px 40px color-mix(in srgb,var(--b) 45%,transparent));animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-54%)}}
+.sl{animation:scan 2.2s ease-in-out infinite alternate}
+@keyframes scan{from{transform:translateY(0)}to{transform:translateY(96px)}}
+/* compare */
+.cmp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--ln);border-radius:20px;overflow:hidden;border:1px solid var(--ln);font-size:14px}
+.cmp>div{background:var(--card);padding:14px 16px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cmp .h{font:700 12px "Sora",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.cmp .y{color:var(--ok);font-weight:600}.cmp .n{color:var(--no)}
+.cmp .ic{vertical-align:-2px;margin-right:4px}
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;position:relative}
+.tl .card{padding:18px}.tl .yr{font:700 11px "Sora",sans-serif;letter-spacing:.16em;color:var(--b);text-transform:uppercase;margin-top:10px;display:block}
+/* demo */
+.demo{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+@media(max-width:860px){.demo{grid-template-columns:1fr;gap:26px;justify-items:center}}
+.ph{width:232px;height:468px;border-radius:40px;border:8px solid #1a2238;background:#0a1020;position:relative;overflow:hidden;box-shadow:0 40px 80px color-mix(in srgb,var(--b) 40%,transparent),0 0 0 1px var(--ln);flex:none;color:#eef3ff;font-size:11.5px}
+.ph::before{content:"";position:absolute;top:8px;left:50%;width:70px;height:18px;margin-left:-35px;background:#1a2238;border-radius:12px;z-index:3}
+.sc{position:absolute;inset:0;padding:44px 16px 16px;opacity:0;transition:opacity .45s;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.sc.on{opacity:1}
+.sc .t{font:700 15px "Sora",sans-serif}
+.bal{border-radius:18px;padding:16px;background:linear-gradient(135deg,#0891b2,#7c3aed);color:#fff}
+.bal b{display:block;font:800 26px "Sora",sans-serif;margin-top:2px}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.acts span{background:rgba(255,255,255,.07);border-radius:14px;padding:10px 0;text-align:center;font-size:10.5px;color:#aab8d6}
+.acts .ic{display:block;margin:0 auto 4px;font-size:18px;color:#22d3ee}
+.btn{margin-top:auto;border-radius:16px;padding:13px;text-align:center;font:700 13px "Sora",sans-serif;background:linear-gradient(90deg,#22d3ee,#a78bfa);color:#06101f;position:relative}
+.sc.on .btn.pl::after{content:"";position:absolute;inset:-4px;border-radius:20px;border:2px solid #22d3ee;animation:pg 1.4s ease-out infinite}
+@keyframes pg{from{opacity:.9;transform:scale(.96)}to{opacity:0;transform:scale(1.1)}}
+.cam{position:relative;flex:1;border-radius:20px;background:radial-gradient(circle at 50% 40%,#26324f,#0c1324);display:grid;place-items:center;overflow:hidden}
+.cam .q{width:112px;height:112px;background:#fff;border-radius:10px;padding:8px;color:#0a1020}
+.cam .q svg{width:100%;height:100%}
+.cam .cn{position:absolute;width:150px;height:150px;border:2px solid #22d3ee;border-radius:18px;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask-composite:exclude;padding:2px}
+.cam .ln{position:absolute;left:50%;width:140px;margin-left:-70px;height:3px;border-radius:3px;background:#22d3ee;box-shadow:0 0 16px #22d3ee;top:30%}
+.sc.on .cam .ln{animation:sc2 1.3s ease-in-out infinite alternate}
+@keyframes sc2{to{top:68%}}
+.mer{display:flex;align-items:center;gap:10px}
+.mer i{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:grid;place-items:center;font-size:20px}
+.amt{font:800 32px "Sora",sans-serif;text-align:center;margin:8px 0}
+.sc.on .amt{animation:pop .6s .3s both}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:auto}
+.kp span{background:rgba(255,255,255,.07);border-radius:10px;padding:8px 0;text-align:center;font:600 13px "Sora",sans-serif}
+.pd{display:flex;gap:12px;justify-content:center;margin:20px 0 6px}
+.pd i{width:14px;height:14px;border-radius:50%;border:2px solid #5b6a8d;display:block}
+.sc.on .pd i{animation:fi .25s both;animation-delay:calc(var(--n)*.55s + .5s)}
+@keyframes fi{to{background:#22d3ee;border-color:#22d3ee;box-shadow:0 0 12px #22d3ee}}
+.spn{width:62px;height:62px;border-radius:50%;border:4px solid rgba(255,255,255,.12);border-top-color:#22d3ee;margin:60px auto 12px;animation:spin .9s linear infinite}
+.vs{color:#98a7c6;text-align:center;opacity:0}
+.sc.on .vs{animation:up .5s both;animation-delay:calc(var(--n)*.8s)}
+.ck{width:84px;height:84px;margin:36px auto 6px;display:block}
+.ck circle{fill:rgba(52,211,153,.14);stroke:#34d399;stroke-width:3}
+.ck path{fill:none;stroke:#34d399;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
+.sc.on .ck path{animation:dr .6s .35s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.rc{background:rgba(255,255,255,.06);border-radius:14px;padding:12px;margin-top:6px;display:grid;gap:4px;color:#aab8d6}
+.rc div{display:flex;justify-content:space-between}.rc b{color:#fff}
+.stp{display:grid;gap:8px;width:100%}
+.st{position:relative;padding:12px 16px 12px 56px;border-radius:16px;border:1px solid var(--ln);background:var(--card);cursor:pointer;overflow:hidden;transition:.3s;opacity:.6}
+.st .n{position:absolute;left:14px;top:12px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 13px "Sora",sans-serif;border:1px solid var(--ln)}
+.st b{font:700 15px "Sora",sans-serif}
+.st p{margin:0;font-size:13.5px;color:var(--mut);max-height:0;overflow:hidden;transition:max-height .4s}
+.st .f{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--a),var(--b))}
+.st.on{opacity:1;border-color:var(--a)}.st.on p{max-height:70px}
+.st.on .n,.st.dn .n{background:linear-gradient(135deg,var(--a),var(--b));color:#fff;border:0}
+.st.dn{opacity:.85}
+.ctl{display:flex;align-items:center;gap:14px;margin-top:6px;font-size:13px;color:var(--mut)}
+.ctl button{border:1px solid var(--ln);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 18px;font:600 13px "Sora",sans-serif;cursor:pointer}
+.live{display:inline-flex;align-items:center;gap:7px;font:700 11px "Sora",sans-serif;letter-spacing:.16em;color:var(--no)}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--no);animation:pg 1.2s infinite}
+/* flow */
+.fl{display:flex;align-items:center}
+.nd{text-align:center;flex:none;width:112px}.nd .ib{width:60px;height:60px;font-size:28px;border-radius:20px}.nd b{display:block;font:700 14px "Sora",sans-serif;margin-top:8px}.nd small{color:var(--mut);font-size:12px;display:block;line-height:1.35}
+.lk{flex:1;height:3px;min-width:20px;border-radius:3px;margin-bottom:46px;background:linear-gradient(90deg,transparent 0 35%,var(--a) 50%,transparent 65%) 0 0/250% 100% var(--ln);animation:fw 1.8s linear infinite}
+@keyframes fw{to{background-position:-250% 0}}
+@keyframes fv{to{background-position:0 -250%}}
+@media(max-width:860px){.fl{flex-direction:column}.lk{width:3px;height:26px;margin:4px 0;flex:none;background:linear-gradient(180deg,transparent 0 35%,var(--a) 50%,transparent 65%) 0 0/100% 250% var(--ln);animation:fv 1.8s linear infinite}}
+/* two col */
+.two{display:grid;gap:22px;grid-template-columns:1fr 1fr}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.li{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ln)}
+.li:last-child{border:0}.li .ib{width:40px;height:40px;font-size:20px;flex:none;border-radius:12px}.li b{font:700 15px "Sora",sans-serif;display:block}.li span{color:var(--mut);font-size:13.5px}
+.col h3{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:20px}
+.flag .ib{animation:wb 2s ease-in-out infinite}
+@keyframes wb{50%{transform:scale(1.1);box-shadow:0 0 0 6px color-mix(in srgb,var(--no) 18%,transparent)}}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 18px}
+.chips .ar{color:var(--a);font-size:20px}
+.num{font:800 44px "Sora",sans-serif;background:linear-gradient(135deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+/* nav */
+#nav{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:0;right:0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:6}
+#nav button{border:1px solid var(--ln);border-radius:99px;padding:11px 24px;font:600 14px "Sora",sans-serif;color:var(--ink);background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);cursor:pointer;transition:.25s}
+#nav button#next{background:linear-gradient(90deg,var(--a),var(--b));color:#fff;border:0}
+#nav button:hover:not(:disabled){transform:translateY(-2px)}
+#nav button:disabled{opacity:.3;cursor:default}
+#dots{display:flex;gap:8px}
+#dots i{width:8px;height:8px;border-radius:99px;background:var(--ln);cursor:pointer;transition:.35s;display:block}
+#dots i.on{width:26px;background:linear-gradient(90deg,var(--a),var(--b))}
+@media(max-width:700px){#dots{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h12v4"/><path d="M3 7v10a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14" r="1.2"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6"/><path d="M5.5 10v8M9.5 10v8M14.5 10v8M18.5 10v8M3 20h18"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3M20 14v.01M14 20h3M20 17v3"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></symbol>
+<symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M3 4h2.5l2 11h10l2-8H7"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+<symbol id="i-nowifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/><path d="M4 4l16 16"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0A2.7 2.7 0 0 0 20 9"/><path d="M5 12v8h14v-8"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+<symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.7h3.7a1.6 1.6 0 0 1 0 3.2h-2.6a1.6 1.6 0 0 0 0 3.2h3.9"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M10 12h6M10 16h6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19z"/></symbol>
+<symbol id="qrp" viewBox="0 0 21 21"><path fill="currentColor" fill-rule="evenodd" d="M0 0h7v7H0zm1 1v5h5V1zM2 2h3v3H2zM14 0h7v7h-7zm1 1v5h5V1zm1 1h3v3h-3zM0 14h7v7H0zm1 1v5h5v-5zm1 1h3v3H2zM9 0h2v2H9zm3 2h2v2h-2zM8 4h2v2H8zm3 1h2v3h-2zM9 9h3v2H9zm4 0h2v2h-2zm4 0h4v2h-4zM0 9h2v3H0zm4 0h3v2H4zM14 13h3v2h-3zm5 0h2v3h-2zM9 13h3v3H9zm5 4h2v4h-2zm4-1h3v2h-3zm0 4h3v1h-3zM9 18h3v3H9z"/></symbol>
+</defs></svg>
+<div class="blob x"></div><div class="blob y"></div>
+<div id="bar"></div>
+<div id="top"><span class="lg"><i></i>Digital Payments</span><span id="sec"></span><span id="count">01 / 10</span></div>
+<div id="stage">
+
+<section class="slide" id="s1" data-t="Introduction"><div class="sp"><div>
+<p class="ey rv">Science and Technology · Class 10</p>
+<h1 class="rv"><span class="gr">Digital<br>Payments</span></h1>
+<p class="ld rv" style="font-size:clamp(17px,2vw,24px);color:var(--ink);font-family:Sora,sans-serif;font-weight:500">The future of money, in the palm of your hand.</p>
+<div class="rv"><span class="tag">Wallets</span><span class="tag">QR codes</span><span class="tag">Cards</span><span class="tag">Online business</span></div>
+
+</div>
+<div class="orbit rv" style="--i:3">
+<div class="ring r1"><div class="ob" style="--r:0deg"><span class="ib" data-i="coin"></span></div><div class="ob" style="--r:180deg"><span class="ib" data-i="card"></span></div></div>
+<div class="ring r2"><div class="ob" style="--r:90deg"><span class="ib" data-i="shield"></span></div><div class="ob" style="--r:270deg"><span class="ib" data-i="bolt"></span></div></div>
+<svg viewBox="0 0 150 280" aria-hidden="true"><rect x="3" y="3" width="144" height="274" rx="26" fill="#0a1020" stroke="#2a3558" stroke-width="3"/><rect x="12" y="30" width="126" height="220" rx="14" fill="#111a33"/><rect x="58" y="12" width="34" height="8" rx="4" fill="#26324f"/><g style="color:#eef3ff"><use href="#qrp" x="35" y="62" width="80" height="80"/></g><rect class="sl" x="30" y="58" width="90" height="3" rx="2" fill="#22d3ee"/><rect x="30" y="196" width="90" height="30" rx="15" fill="#22d3ee"/><rect x="42" y="208" width="66" height="6" rx="3" fill="#06101f" opacity=".55"/></svg>
+</div></div></section>
+
+<section class="slide" id="s2" data-t="The Concept"><div class="sp"><div>
+<p class="ey rv">What is it?</p>
+<h2 class="rv">Money that moves <span class="gr">as data</span></h2>
+<p class="ld rv">Digital payments are transactions that take place electronically, without using physical cash. Instead, money is transferred through digital platforms or electronic means.</p>
+<div class="card rv"><span class="ib" data-i="swap"></span><h3>Unlike cheques</h3><p>They do not depend on paper instruments, so payments are faster, more convenient and often more secure.</p></div></div>
+<div class="cmp rv" style="--i:2">
+<div class="h"></div><div class="h">Cash</div><div class="h">Digital</div>
+<div class="h">Speed</div><div class="n"><span data-i="x"></span>Hand over, count</div><div class="y"><span data-i="check"></span>Within seconds</div>
+<div class="h">Safety</div><div class="n"><span data-i="x"></span>Can be stolen</div><div class="y"><span data-i="check"></span>PIN protected</div>
+<div class="h">Record</div><div class="n"><span data-i="x"></span>None by default</div><div class="y"><span data-i="check"></span>Automatic</div>
+<div class="h">Reach</div><div class="n"><span data-i="x"></span>Face to face</div><div class="y"><span data-i="check"></span>Anywhere online</div>
+</div></div></section>
+
+<section class="slide" id="s3" data-t="Evolution">
+<p class="ey rv">A short history</p><h2 class="rv">How we <span class="gr">paid</span> over time</h2>
+<p class="ld rv">Each step solved a problem of the one before it. Digital payments are the latest chapter.</p>
+<div class="tl">
+<div class="card rv"><span class="ib" data-i="swap"></span><span class="yr">Barter</span><h3>Swap goods</h3><p>Needs two people who each want what the other has.</p></div>
+<div class="card rv"><span class="ib" data-i="coin"></span><span class="yr">Cash</span><h3>Coins and notes</h3><p>A common value, but it must be carried and counted.</p></div>
+<div class="card rv"><span class="ib" data-i="doc"></span><span class="yr">Cheques</span><h3>Paper promises</h3><p>Safer than cash, yet slow to clear and easy to misplace.</p></div>
+<div class="card rv"><span class="ib" data-i="card"></span><span class="yr">Cards</span><h3>Plastic money</h3><p>Swipe at POS machines and shop online.</p></div>
+<div class="card rv"><span class="ib" data-i="qr"></span><span class="yr">Today</span><h3>Wallets and QR</h3><p>Instant, trackable and always on your phone.</p></div>
+</div></section>
+
+<section class="slide" id="s4" data-t="Types">
+<p class="ey rv">Part 1 · Types</p><h2 class="rv">Ways to pay <span class="gr">digitally</span></h2>
+<p class="ld rv">Several tools make digital payment possible. These are the examples from our textbook.</p>
+<div class="grid">
+<div class="card rv"><span class="ib" data-i="wallet"></span><h3>Mobile wallets</h3><p>eSewa, Khalti and FonePay hold money inside an app.</p></div>
+<div class="card rv"><span class="ib" data-i="bank"></span><h3>Online and mobile banking</h3><p>Transfer, pay bills and manage accounts from a phone.</p></div>
+<div class="card rv"><span class="ib" data-i="card"></span><h3>Debit and credit cards</h3><p>Used with POS machines and for online shopping.</p></div>
+<div class="card rv"><span class="ib" data-i="qr"></span><h3>QR code payments</h3><p>Scan a code and the payment details fill in for you.</p></div>
+<div class="card rv"><span class="ib" data-i="server"></span><h3>Payment gateways</h3><p>Secure checkout bridges between websites and banks.</p></div>
+<div class="card rv"><span class="ib" data-i="globe"></span><h3>UPI-based payments</h3><p>Available in countries where the system exists.</p></div>
+</div></section>
+
+<section class="slide" id="s5" data-t="Live Demo"><div class="demo">
+<div class="ph" id="ph">
+<div class="sc"><div class="t">Good morning</div><div class="bal">Wallet balance<b>Rs 5,000</b></div><div class="acts"><span><svg class="ic"><use href="#i-send"/></svg>Send</span><span><svg class="ic"><use href="#i-plus"/></svg>Load</span><span><svg class="ic"><use href="#i-receipt"/></svg>History</span></div><div class="btn pl">Scan and Pay</div></div>
+<div class="sc"><div class="t">Scan QR</div><div class="cam"><div class="cn"></div><div class="q"><svg><use href="#qrp"/></svg></div><div class="ln"></div></div><div style="text-align:center;color:#98a7c6">Align the code inside the frame</div></div>
+<div class="sc"><div class="mer"><i><svg class="ic" style="font-size:20px"><use href="#i-store"/></svg></i><div><b>Sample Café</b><br><span style="color:#98a7c6">Verified merchant</span></div></div><div class="amt">Rs 1,250</div><div class="kp"></div><div class="btn">Pay now</div></div>
+<div class="sc"><div class="t" style="text-align:center;margin-top:20px">Enter your PIN</div><div class="pd"><i style="--n:0"></i><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i></div><div class="kp"></div></div>
+<div class="sc"><div class="spn"></div><div class="t" style="text-align:center">Processing</div><div class="vs" style="--n:.3">Encrypting request</div><div class="vs" style="--n:1">Contacting bank</div><div class="vs" style="--n:1.8">Verifying balance</div></div>
+<div class="sc"><svg class="ck" viewBox="0 0 84 84"><circle cx="42" cy="42" r="38"/><path d="M26 43l12 12 21-24"/></svg><div class="t" style="text-align:center">Payment successful</div><div class="rc"><div><span>Paid to</span><b>Sample Café</b></div><div><span>Amount</span><b>Rs 1,250</b></div><div><span>Reference</span><b>TXN-20261121-0042</b></div><div><span>Time</span><b>Instant</b></div></div></div>
+</div>
+<div><p class="ey"><span class="live">Live demo</span></p><h2>See a payment <span class="gr">happen</span></h2>
+<div class="stp">
+<div class="st"><span class="n">1</span><b>Open the app</b><p>Log in to eSewa, Khalti, FonePay or your bank’s mobile app.</p><i class="f"></i></div>
+<div class="st"><span class="n">2</span><b>Scan the QR code</b><p>The camera reads the merchant’s unique code, which carries their payment details.</p><i class="f"></i></div>
+<div class="st"><span class="n">3</span><b>Check and enter amount</b><p>Confirm the merchant’s name, then type how much to pay.</p><i class="f"></i></div>
+<div class="st"><span class="n">4</span><b>Authorise with PIN</b><p>Your secret PIN proves that it is really you.</p><i class="f"></i></div>
+<div class="st"><span class="n">5</span><b>Bank verification</b><p>The request is encrypted, sent to the bank, and your balance is checked.</p><i class="f"></i></div>
+<div class="st"><span class="n">6</span><b>Done in seconds</b><p>Money reaches the merchant and both sides get a digital record.</p><i class="f"></i></div>
+</div>
+<div class="ctl"><button id="pp">Pause</button><span>Click any step to jump to it</span></div></div>
+</div></section>
+
+<section class="slide" id="s6" data-t="Behind the Scenes">
+<p class="ey rv">Part 2 · Behind the scenes</p><h2 class="rv">What happens in <span class="gr">those seconds?</span></h2>
+<p class="ld rv">Your payment travels through several trusted systems before the merchant sees “paid”.</p>
+<div class="fl rv" style="--i:2;margin-bottom:26px">
+<div class="nd"><span class="ib" data-i="user"></span><b>You</b><small>Start the payment</small></div><div class="lk"></div>
+<div class="nd"><span class="ib" data-i="phone"></span><b>Payment app</b><small>Encrypts the request</small></div><div class="lk"></div>
+<div class="nd"><span class="ib" data-i="server"></span><b>Gateway</b><small>Routes it securely</small></div><div class="lk"></div>
+<div class="nd"><span class="ib" data-i="bank"></span><b>Bank</b><small>Verifies and debits</small></div><div class="lk"></div>
+<div class="nd"><span class="ib" data-i="store"></span><b>Merchant</b><small>Receives confirmation</small></div></div>
+<div class="grid">
+<div class="card rv"><span class="ib" data-i="lock"></span><h3>Encryption</h3><p>Details are scrambled so outsiders cannot read them in transit.</p></div>
+<div class="card rv"><span class="ib" data-i="key"></span><h3>Authentication</h3><p>A PIN, password or fingerprint confirms the real owner.</p></div>
+<div class="card rv"><span class="ib" data-i="receipt"></span><h3>Settlement</h3><p>The bank moves the funds and keeps a record of the transaction.</p></div>
+</div></section>
+
+<section class="slide" id="s7" data-t="Pros and Cons">
+<p class="ey rv">Part 3 · Balance</p><h2 class="rv">Strengths and <span class="gr">limits</span></h2>
+<div class="two" style="margin-top:14px">
+<div class="card col rv"><h3 style="color:var(--ok)">Advantages</h3>
+<div class="li"><span class="ib g" data-i="bolt"></span><div><b>Fast and convenient</b><span>Pay in seconds, any time of day.</span></div></div>
+<div class="li"><span class="ib g" data-i="shield"></span><div><b>Safer than cash</b><span>Less risk of theft than carrying notes.</span></div></div>
+<div class="li"><span class="ib g" data-i="receipt"></span><div><b>Digital record</b><span>Every transaction is kept for later checking.</span></div></div>
+<div class="li"><span class="ib g" data-i="cart"></span><div><b>Online shopping</b><span>Useful for buying goods and services online.</span></div></div>
+<div class="li"><span class="ib g" data-i="trend"></span><div><b>Cashless economy</b><span>Helps promote a cashless economy.</span></div></div></div>
+<div class="card col rv"><h3 style="color:var(--no)">Disadvantages</h3>
+<div class="li"><span class="ib r" data-i="nowifi"></span><div><b>Needs internet</b><span>No network access means no payment.</span></div></div>
+<div class="li"><span class="ib r" data-i="warn"></span><div><b>Cyber-security risks</b><span>Dangerous if misused or if details leak.</span></div></div>
+<div class="li"><span class="ib r" data-i="book"></span><div><b>Digital literacy</b><span>Not suitable for people without digital skills.</span></div></div>
+<div class="li" style="margin-top:8px"><span class="ib" data-i="shield"></span><div><b>The takeaway</b><span>Education and safe habits turn most limits into manageable risks.</span></div></div></div>
+</div></section>
+
+<section class="slide" id="s8" data-t="Staying Safe"><div class="two">
+<div><p class="ey rv">Part 4 · Be smart</p><h2 class="rv">Pay <span class="gr">safely</span></h2>
+<p class="ld rv">A few habits protect your money and your information.</p>
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div class="card rv"><span class="ib" data-i="key"></span><h3>Guard your PIN</h3><p>Never share your PIN or OTP, even with someone claiming to help.</p></div>
+<div class="card rv"><span class="ib" data-i="qr"></span><h3>Trust the source</h3><p>Scan QR codes and links only from trusted places.</p></div>
+<div class="card rv"><span class="ib" data-i="phone"></span><h3>Official apps</h3><p>Install only genuine apps from official stores.</p></div>
+<div class="card rv"><span class="ib" data-i="eye"></span><h3>Double-check</h3><p>Read the name and amount before confirming.</p></div></div></div>
+<div class="card flag rv" style="--i:3"><h3 style="margin-top:0;font-size:22px;color:var(--no)">Red flags</h3><p style="margin-bottom:8px">Stop and think if you see any of these.</p>
+<div class="li"><span class="ib r" data-i="link"></span><div><b>Unknown link or QR</b><span>Sent by a stranger or found somewhere random.</span></div></div>
+<div class="li"><span class="ib r" data-i="lock"></span><div><b>Asks for PIN or OTP</b><span>Real services never ask for these.</span></div></div>
+<div class="li"><span class="ib r" data-i="coin"></span><div><b>Too good to be true</b><span>Surprise prizes and huge cashbacks.</span></div></div>
+<div class="li"><span class="ib r" data-i="bolt"></span><div><b>Pressure to hurry</b><span>Scammers rush you so you do not think.</span></div></div></div>
+</div></section>
+
+<section class="slide" id="s9" data-t="Online Business"><div class="sp"><div>
+<p class="ey rv">Part 5 · Real world</p><h2 class="rv">Digital payments power <span class="gr">online business</span></h2>
+<p class="ld rv">Online business is any commercial activity done through the internet: buying, selling, marketing, delivering digital services and exchanging information, using digital platforms instead of traditional physical shops.</p>
+<div class="chips rv"><span class="tag">Browse</span><span class="ar" data-i="arrow"></span><span class="tag">Order</span><span class="ar" data-i="arrow"></span><span class="tag">Pay digitally</span><span class="ar" data-i="arrow"></span><span class="tag">Delivery</span></div>
+<div class="rv"><span class="tag">Daraz</span><span class="tag">Sastodeal</span><span class="tag">Thulo</span><span class="tag">Foodmandu</span><span class="tag">Muncha</span><span class="tag">Khalti</span></div></div>
+<div class="grid" style="grid-template-columns:1fr">
+<div class="card rv"><div class="num">Anywhere</div><p>Shops reach customers far beyond their street.</p></div>
+<div class="card rv"><div class="num">Any time</div><p>Online stores never close, and payments never wait for a bank counter.</p></div>
+<div class="card rv"><div class="num">Trusted</div><p>Secure, recorded payments build confidence between strangers.</p></div></div>
+</div></section>
+
+<section class="slide" id="s10" data-t="Conclusion">
+<p class="ey rv">Key takeaways</p><h1 class="rv" style="font-size:clamp(38px,6.4vw,80px)"><span class="gr">Thank you.</span></h1>
+<div class="grid" style="margin-top:14px">
+<div class="card rv"><div class="num">01</div><h3>Cash is optional</h3><p>Money can move entirely through digital platforms.</p></div>
+<div class="card rv"><div class="num">02</div><h3>Convenient and secure</h3><p>Fast, recorded and safer than cash when used wisely.</p></div>
+<div class="card rv"><div class="num">03</div><h3>Skills matter</h3><p>Internet access and digital literacy decide who benefits.</p></div></div>
+<div class="by rv"><span>Any questions?</span></div>
+</section>
+
+</div>
+<div id="nav"><button id="prev">Back</button><div id="dots"></div><button id="next">Next</button></div>
+<script>
+(function(){
+var $=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+$("[data-i]").forEach(function(e){e.innerHTML='<svg class="ic"><use href="#i-'+e.getAttribute("data-i")+'"/></svg>'});
+$(".kp").forEach(function(k){k.innerHTML=["1","2","3","4","5","6","7","8","9","","0","←"].map(function(x){return"<span>"+x+"</span>"}).join("")});
+var S=$(".slide"),n=S.length,i=-1,dots=document.getElementById("dots");
+S.forEach(function(s,k){$(".rv",s).forEach(function(e,j){if(!e.style.getPropertyValue("--i"))e.style.setProperty("--i",j)});var d=document.createElement("i");d.onclick=function(){go(k)};dots.appendChild(d)});
+/* demo */
+var D=3400,N=6,t=0,play=false,sc=$("#ph .sc"),st=$(".st"),pp=document.getElementById("pp"),cur=-1;
+function render(){
+ var s=Math.min(N-1,Math.floor(t/D));
+ if(s!==cur){cur=s;sc.forEach(function(e,k){e.classList.toggle("on",k===s)})}
+ st.forEach(function(e,k){e.classList.toggle("on",k===s);e.classList.toggle("dn",k<s);e.querySelector(".f").style.width=k<s?"100%":k===s?Math.min(100,(t-s*D)/D*100)+"%":"0"});
+ pp.textContent=play?"Pause":(t>=N*D?"Replay":"Play");
+}
+setInterval(function(){if(!play)return;t+=60;if(t>=N*D){t=N*D-1;play=false;t=N*D}render()},60);
+pp.onclick=function(){if(t>=N*D){t=0;cur=-1}play=!play||t===0;if(t===0)play=true;render()};
+st.forEach(function(e,k){e.onclick=function(){t=k*D+1;cur=-1;play=true;render()}});
+/* nav */
+function go(k){
+ k=Math.max(0,Math.min(n-1,k));if(k===i)return;i=k;
+ S.forEach(function(s,j){s.classList.toggle("on",j===i)});
+ $("i",dots).forEach(function(d,j){d.classList.toggle("on",j===i)});
+ document.getElementById("bar").style.width=((i+1)/n*100)+"%";
+ document.getElementById("count").textContent=("0"+(i+1)).slice(-2)+" / "+n;
+ document.getElementById("sec").textContent=S[i].getAttribute("data-t");
+ document.getElementById("prev").disabled=i===0;document.getElementById("next").disabled=i===n-1;
+ if(S[i].id==="s5"){t=0;cur=-1;play=true}else{play=false}
+ render();
+ try{history.replaceState(null,"","#s"+(i+1))}catch(e){}
+}
+document.getElementById("prev").onclick=function(){go(i-1)};
+document.getElementById("next").onclick=function(){go(i+1)};
+document.addEventListener("keydown",function(e){
+ if(e.target.isContentEditable)return;
+ if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();go(i+1)}
+ if(e.key==="ArrowLeft"||e.key==="PageUp"){go(i-1)}
+ if(e.key===" "&&S[i].id==="s5"){e.preventDefault();pp.click()}
+});
+var x0=null;
+document.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+document.addEventListener("touchend",function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>70&&!e.target.closest(".stp"))go(i+(dx<0?1:-1));x0=null});
+document.addEventListener("mousemove",function(e){
+ document.body.style.setProperty("--mx",e.clientX+"px");document.body.style.setProperty("--my",e.clientY+"px");
+ var c=e.target.closest&&e.target.closest(".card");if(c){var r=c.getBoundingClientRect();c.style.setProperty("--cx",(e.clientX-r.left)+"px");c.style.setProperty("--cy",(e.clientY-r.top)+"px")}
+});
+/* creator name sync */
+var cr=$(".cr");cr.forEach(function(e){e.addEventListener("input",function(){cr.forEach(function(o){if(o!==e)o.textContent=e.textContent})})});
+function fh(){var m=/^#s(\d+)$/.exec(location.hash);i=-1;go(m?parseInt(m[1],10)-1:0)}
+window.addEventListener("hashchange",fh);fh();
+})();
+</script>
+</body>
+</html>
